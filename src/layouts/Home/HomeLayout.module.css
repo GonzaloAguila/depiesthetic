@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+    background-image: url('../../../public/images/bg.jpg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen */
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el contenedor */
+    background-position: center center; /* Centra la imagen horizontal y verticalmente */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* Pseudo-elemento para el fondo opaco */
+    position: relative;
+}
+
+.container::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.33);
+}
+
+.container * {
+    z-index: 3;
+}
+
+.container h1 {
+    font-size: 2rem;
+    margin: 0;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 20px; /* Ajusta según sea necesario */
+    padding: 1rem;
+    font-weight: bold;
+}
+.container h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+.contentContainer {
+    min-height: 600px;
+    width: 100%;
+    max-width: 650px;
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con opacidad (ajusta el último valor según sea necesario) */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 20px; /* Ajusta según sea necesario */
+    border: 1px solid rgba(255, 255, 255, 0.7); /* Borde blanco con opacidad (ajusta el último valor según sea necesario) */
+    border-radius: 10px; /* Ajusta según sea necesario */
+    backdrop-filter: blur(4px); /* Ajusta el valor de desenfoque según sea necesario */
+}
+.tab {
+    padding: 1rem;
+}
+
+.listTitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.item {
+    color: black; /* Color de texto predeterminado para las opciones no seleccionadas */
+    padding: 0.5rem 1rem; /* Ajusta el relleno según sea necesario */
+    transition: background-color 0.3s, color 0.3s; /* Agrega una transición suave */
+    cursor: pointer; /* Cambia el cursor al pasar sobre las opciones */
+    font-size: 18px;
+}
+
+.item:hover {
+    background-color: #e0e0e0; /* Cambia el color de fondo al pasar sobre las opciones */
+}
+
+.selected {
+    color: white; /* Cambia el color de texto cuando está seleccionado */
+    background-color: #4caf50; /* Cambia el color de fondo cuando está seleccionado */
+    padding: 0.5rem 1rem; /* Ajusta el relleno según sea necesario */
+    border-radius: 5px; /* Agrega bordes redondeados */
+    transition: background-color 0.5s, color 0.3s; /* Agrega una transición suave */
+}
+
+.totalPriceContainer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.totalPriceContainer p {
+    font-size: 1.3rem;
+    text-decoration: underline;
+}
+.totalPriceContainer span {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #409343;
+}
+.cotizarButton {
+    background-color: #409343; /* Color de fondo de WhatsApp verde */
+    color: #fff; /* Color del texto blanco */
+    padding: 18px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+    cursor: pointer;
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transición para el cambio de color en hover */
+}
+
+.cotizarButton:hover {
+    background-color: #25d366; /* Color de fondo con efecto hover */
+}
+
+.whatsappIcon {
+    width: 20px; /* Ajusta el tamaño del icono según sea necesario */
+    height: 20px; /* Ajusta el tamaño del icono según sea necesario */
+    margin-right: 5px; /* Espaciado entre el icono y el texto del botón */
+}

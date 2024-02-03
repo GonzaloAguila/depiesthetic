@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}    
+
+body {
+    overflow: auto;
+    min-height: 100vh;
+    min-width: 100%;   
+    background-color: #ffffff;
+    background-size: cover;
+    font-family: 'Gantari';
+    src: url('../public/fonts/Gantari-VariableFont_wght.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+
+ 
