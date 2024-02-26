@@ -5,6 +5,8 @@
 :root {
     --primary: #ed7aa4;
     --secondary: #a084ce;
+    --light-secondary: #b39add;
+    --very-light-secondary: #c5b0e7;
 }
 
 html {

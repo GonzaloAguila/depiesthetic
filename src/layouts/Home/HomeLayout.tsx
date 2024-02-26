@@ -31,17 +31,23 @@ const HomeLayout = () => {
         BIKE: 50, // Precio para 'BIKE'
     };
 
-    const handleCheckboxChange = (zoneCode: string, itemValue: string) => {
-        const isChecked = selectedZones.includes(itemValue);
-        let updatedSelectedZones: string[];
-
+    const handleSelectionChange = (itemValue: string, selectedItems: string[], setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>) => {
+        const isChecked = selectedItems.includes(itemValue);
+        let updatedSelectedItems: string[];
         if (isChecked) {
-            updatedSelectedZones = selectedZones.filter((value) => value !== itemValue);
+            updatedSelectedItems = selectedItems.filter((value) => value !== itemValue);
         } else {
-            updatedSelectedZones = [...selectedZones, itemValue];
+            updatedSelectedItems = [...selectedItems, itemValue];
         }
+        setSelectedItems(updatedSelectedItems);
+    };
 
-        setSelectedZones(updatedSelectedZones);
+    const handleCheckboxChange = (itemValue: string) => {
+        handleSelectionChange(itemValue, selectedZones, setSelectedZones);
+    };
+
+    const handlePromotionsChange = (itemValue: string) => {
+        handleSelectionChange(itemValue, selectedPromos, setSelectedPromos);
     };
 
     useEffect(() => {
@@ -51,11 +57,6 @@ const HomeLayout = () => {
         });
     }, [selectedZones]);
 
-    const longestLabelLength = Math.max(
-        ...zones.map((zone) => {
-            return Math.max(...zone.items.map((item) => item.label.length));
-        })
-    );
     return (
         <div className={styles.container}>
             <div className='w-full flex justify-end mt-10 relative'>
@@ -118,7 +119,7 @@ const HomeLayout = () => {
                                     const isChecked = selectedPromos.includes(promotion.value);
                                     return (
                                         <PromotionCard
-                                            onChange={() => handleCheckboxChange('', promotion.value)}
+                                            onChange={() => handlePromotionsChange(promotion.value)}
                                             isChecked={isChecked}
                                             key={index}
                                             promotion={promotion}
@@ -138,7 +139,7 @@ const HomeLayout = () => {
                                             const isChecked = selectedZones.includes(item.value);
                                             return (
                                                 <PromotionCard
-                                                    onChange={() => handleCheckboxChange('', item.value)}
+                                                    onChange={() => handleCheckboxChange(item.value)}
                                                     isChecked={isChecked}
                                                     key={index}
                                                     promotion={item}
@@ -152,15 +153,16 @@ const HomeLayout = () => {
                     </div>
 
                     <div className={styles.totalPriceContainer}>
-                        <p>Total elegido:</p>
+                        <p>TOTAL:</p>
                         <span>${totalPrice},00</span>
-                        <div className={styles.cotizarButtonContainer}>
+                        
+                    </div>
+                    <div className={styles.cotizarButtonContainer}>
                             <button className={styles.cotizarButton}>
                                 <FaWhatsapp className={styles.whatsappIcon} size={18} />
                                 Cotizar Ahora
                             </button>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

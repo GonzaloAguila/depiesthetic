@@ -37,5 +37,5 @@
     height: 16px;
     border: 1px solid #000;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+    transition: background-color 0.3s ease;
 }

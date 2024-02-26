@@ -3,10 +3,10 @@ import { Item } from "../models/data.model";
 export const locations: string[] = ['Caballito', 'Palermo', 'Belgrano', 'R. Mejía'];
 export const plans: string[] = ['1 sesión', '3 sesiones', '6 sesiones'];
 export const promotions: Item[] = [
-    { label: 'Cavado completo + axilas', value: 'PROMO1', price: 17500 },
-    { label: 'Cavado completo + tira de cola', value: 'PROMO1', price: 17500 },
-    { label: 'Cavado completo + tira de cola + axilas', value: 'PROMO1', price: 19500 },
-    { label: 'Cavado completo + tira de cola + axilas + bozo', value: 'PROMO1', price: 21500 },
+    { label: 'Cavado completo + axilas', value: 'PROMO01', price: 17500 },
+    { label: 'Cavado completo + tira de cola', value: 'PROMO02', price: 17500 },
+    { label: 'Cavado completo + tira de cola + axilas', value: 'PROMO03', price: 19500 },
+    { label: 'Cavado completo + tira de cola + axilas + bozo', value: 'PROMO04', price: 21500 },
 ];
 export const zones = [
     {
