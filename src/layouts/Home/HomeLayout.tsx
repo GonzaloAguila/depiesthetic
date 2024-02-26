@@ -59,7 +59,7 @@ const HomeLayout = () => {
 
     return (
         <div className={styles.container}>
-            <div className='w-full flex justify-end mt-10 relative'>
+            <div className='w-full flex justify-end mt-4 relative'>
                 <div className={`${styles.contentContainer} ml-2 mr-2`}>
                     <Image alt='logo' height={40} width={150} src={logo} />
                     <div>
