@@ -1,0 +1,41 @@
+.card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.flex {
+    display: flex;
+}
+
+.flex1 {
+    flex: 1 1 auto;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.marginRight {
+    margin-right: 0.5rem;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+}

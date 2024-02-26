@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: scroll;
     height: 100vh;
     background-image: url('../../../public/images/bg.jpg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen */
     background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el contenedor */
@@ -26,16 +26,11 @@
     font-size: 2rem;
     margin: 0;
     text-align: center;
-    border: 1px solid black;
-    border-radius: 20px; /* Ajusta según sea necesario */
-    padding: 1rem;
-    font-weight: bold;
+    font-weight: 900;
 }
 .container h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
-    margin-top: 1.5rem;
-    font-weight: bold;
 }
 
 .contentContainer {
@@ -45,7 +40,7 @@
     background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con opacidad (ajusta el último valor según sea necesario) */
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
     padding: 20px; /* Ajusta según sea necesario */
     border: 1px solid rgba(255, 255, 255, 0.7); /* Borde blanco con opacidad (ajusta el último valor según sea necesario) */
@@ -63,10 +58,9 @@
 
 .item {
     color: black; /* Color de texto predeterminado para las opciones no seleccionadas */
-    padding: 0.5rem 1rem; /* Ajusta el relleno según sea necesario */
     transition: background-color 0.3s, color 0.3s; /* Agrega una transición suave */
     cursor: pointer; /* Cambia el cursor al pasar sobre las opciones */
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .item:hover {
@@ -75,10 +69,31 @@
 
 .selected {
     color: white; /* Cambia el color de texto cuando está seleccionado */
-    background-color: #4caf50; /* Cambia el color de fondo cuando está seleccionado */
     padding: 0.5rem 1rem; /* Ajusta el relleno según sea necesario */
     border-radius: 5px; /* Agrega bordes redondeados */
     transition: background-color 0.5s, color 0.3s; /* Agrega una transición suave */
+}
+
+.accordionTab {
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 16px;
+    margin: 0.5rem;
+    font-weight: bold;
+    background-color: var(--secondary);
+}
+.accordionContent {
+     display: flex;
+     align-items: center;
+     margin: 0.75rem;
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
 }
 
 .totalPriceContainer {
@@ -119,4 +134,50 @@
     width: 20px; /* Ajusta el tamaño del icono según sea necesario */
     height: 20px; /* Ajusta el tamaño del icono según sea necesario */
     margin-right: 5px; /* Espaciado entre el icono y el texto del botón */
+}
+
+.radiobutton {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    margin-right: 8px; /* Ajusta según sea necesario */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+}
+
+.radiobutton:checked {
+    background-color: #000;
+}
+
+.selectedRadiobutton {
+    background-color: var(--secondary);
+    animation-name: pulse;
+    animation-duration: 0.5s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.promotionsAccordionTab {
+    padding: 1rem;
+    border: none;
+    border-radius: 16px;
+    margin: 0.5rem;
+    font-weight: bold;
+    background-color: var(--secondary);
+}
+.promotionsAccordionContent {
+     display: flex;
+     align-items: center;
+     width: 100%;
 }
