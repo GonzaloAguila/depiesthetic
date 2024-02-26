@@ -21,7 +21,7 @@ body {
     overflow: auto;
     min-height: 100vh;
     min-width: 100%;   
-    background-color: #ffffff;
+    background-color: #F4F2F3;
     background-size: cover;
     font-family: 'Gantari';
     src: url('../public/fonts/Gantari-VariableFont_wght.ttf') format('truetype');

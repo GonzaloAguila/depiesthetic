@@ -26,7 +26,6 @@
     min-height: 600px;
     width: 100%;
     max-width: 650px;
-    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con opacidad (ajusta el último valor según sea necesario) */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,6 +33,7 @@
     padding: 20px; /* Ajusta según sea necesario */
     border-radius: 10px; /* Ajusta según sea necesario */
     backdrop-filter: blur(4px); /* Ajusta el valor de desenfoque según sea necesario */
+    border: 1px solid var(--secondary)
 }
 .tab {
     padding: 1rem;
