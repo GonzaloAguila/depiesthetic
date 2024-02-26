@@ -14,9 +14,8 @@ const PromotionCard = ({ promotion, onChange, isChecked }: CardProps) => {
         <div className={`${isChecked ? styles.checked : styles.card} ${styles.shadow}`}>
             <div className={`${styles.flex} ${styles.alignCenter} ${styles.marginRight}`}>
                 <Checkbox className={styles.checkbox} onChange={() => onChange(promotion.value)} checked={isChecked} />
-            </div>
-            <div className={`${styles.flex} ${styles.alignCenter} ${styles.marginRight} ${styles.flex1}`}>
-                <p className='text-sm'>{promotion.label}</p>
+                <p className='text-sm ml-1'>{promotion.label}</p>
+
             </div>
             <div className={`${styles.flex} ${styles.alignCenter}`}>
                 <span className='text-sm font-bold'>${promotion.price}</span>
