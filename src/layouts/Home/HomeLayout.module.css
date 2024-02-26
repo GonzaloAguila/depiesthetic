@@ -67,12 +67,6 @@
     background-color: #e0e0e0; /* Cambia el color de fondo al pasar sobre las opciones */
 }
 
-.selected {
-    color: white; /* Cambia el color de texto cuando está seleccionado */
-    padding: 0.5rem 1rem; /* Ajusta el relleno según sea necesario */
-    border-radius: 5px; /* Agrega bordes redondeados */
-    transition: background-color 0.5s, color 0.3s; /* Agrega una transición suave */
-}
 
 .accordionTab {
     padding: 1rem;
@@ -80,12 +74,13 @@
     border-radius: 16px;
     margin: 0.5rem;
     font-weight: bold;
-    background-color: var(--very-light-secondary);
+    background-color: var(--light-secondary);
 }
+
 .accordionContent {
-    display: flex;
-    align-items: center;
-    margin: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(auto, 1fr)); /* Corrección en la sintaxis */
+    gap: 10px; /* Espacio entre las tarjetas */
 }
 
 .checkbox {
@@ -190,4 +185,14 @@
     display: flex;
     align-items: center;
     width: 100%;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas con igual ancho */
+    gap: 20px; /* Espacio entre las tarjetas */
+}
+
+.cardGrid {
+    width: 100%; /* Asegura que las tarjetas ocupen todo el ancho del contenedor */
 }

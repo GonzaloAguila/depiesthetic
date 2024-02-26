@@ -19,17 +19,24 @@ const HomeLayout = () => {
     const [selectedLocation, setSelectedLocation] = useState<string>('');
     const [selectedPlan, setSelectedPlan] = useState<string>('');
 
-    const prices: Record<string, number> = {
-        BOZ: 10, // Precio para 'BOZ'
-        CUE: 15, // Precio para 'CUE'
-        FRE: 20, // Precio para 'FRE'
-        ABD: 25, // Precio para 'ABD'
-        ANT: 30, // Precio para 'ANT'
-        ARE: 35, // Precio para 'ARE'
-        MPIE: 40, // Precio para 'MPIE'
-        BIKC: 45, // Precio para 'BIKC'
-        BIKE: 50, // Precio para 'BIKE'
-    };
+    useEffect(() => {
+        let totalPrice = 0;
+        selectedPromos.forEach((promo) => {
+            const selectedPromo = promotions.find((item) => item.value === promo);
+            if (selectedPromo) {
+                totalPrice += selectedPromo.price;
+            }
+        });
+        selectedZones.forEach((zone) => {
+            zones.forEach((zoneGroup) => {
+                const selectedZone = zoneGroup.items.find((item) => item.value === zone);
+                if (selectedZone) {
+                    totalPrice += selectedZone.price;
+                }
+            });
+        });
+        setTotalPrice(totalPrice);
+    }, [selectedZones, selectedPromos]);
 
     const handleSelectionChange = (itemValue: string, selectedItems: string[], setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>) => {
         const isChecked = selectedItems.includes(itemValue);
@@ -49,13 +56,6 @@ const HomeLayout = () => {
     const handlePromotionsChange = (itemValue: string) => {
         handleSelectionChange(itemValue, selectedPromos, setSelectedPromos);
     };
-
-    useEffect(() => {
-        setTotalPrice(() => {
-            const total = selectedZones.reduce((acc, zone) => acc + prices[zone], 0);
-            return total;
-        });
-    }, [selectedZones]);
 
     return (
         <div className={styles.container}>
@@ -110,11 +110,7 @@ const HomeLayout = () => {
                     </div>
                     <div className='w-full l mt-4'>
                         <Accordion className='w-full md:w-14rem' multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
-                            <AccordionTab
-                                contentClassName={styles.promotionsAccordionContent}
-                                headerClassName={styles.promotionsAccordionTab}
-                                header={'Promociones'}
-                            >
+                            <AccordionTab contentClassName={styles.promotionsAccordionContent} headerClassName={styles.accordionTab} header={'Promociones'}>
                                 {promotions.map((promotion: Item, index: number) => {
                                     const isChecked = selectedPromos.includes(promotion.value);
                                     return (
@@ -129,23 +125,20 @@ const HomeLayout = () => {
                             </AccordionTab>
                             {zones.map((zone: Zone, index: number) => {
                                 return (
-                                    <AccordionTab
-                                        contentClassName={styles.accordionContent}
-                                        headerClassName={styles.accordionTab}
-                                        header={zone.label}
-                                        key={index}
-                                    >
-                                        {zone.items.map((item: Item, index: number) => {
-                                            const isChecked = selectedZones.includes(item.value);
-                                            return (
-                                                <PromotionCard
-                                                    onChange={() => handleCheckboxChange(item.value)}
-                                                    isChecked={isChecked}
-                                                    key={index}
-                                                    promotion={item}
-                                                />
-                                            );
-                                        })}
+                                    <AccordionTab headerClassName={styles.accordionTab} header={zone.label} key={index}>
+                                        <div className={styles.accordionContent}>
+                                            {zone.items.map((item: Item, index: number) => {
+                                                const isChecked = selectedZones.includes(item.value);
+                                                return (
+                                                    <PromotionCard
+                                                        onChange={() => handleCheckboxChange(item.value)}
+                                                        isChecked={isChecked}
+                                                        key={index}
+                                                        promotion={item}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
                                     </AccordionTab>
                                 );
                             })}
@@ -155,14 +148,13 @@ const HomeLayout = () => {
                     <div className={styles.totalPriceContainer}>
                         <p>TOTAL:</p>
                         <span>${totalPrice},00</span>
-                        
                     </div>
                     <div className={styles.cotizarButtonContainer}>
-                            <button className={styles.cotizarButton}>
-                                <FaWhatsapp className={styles.whatsappIcon} size={18} />
-                                Cotizar Ahora
-                            </button>
-                        </div>
+                        <button className={styles.cotizarButton}>
+                            <FaWhatsapp className={styles.whatsappIcon} size={18} />
+                            Cotizar Ahora
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

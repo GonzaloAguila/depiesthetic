@@ -11,15 +11,15 @@ type CardProps = {
 
 const PromotionCard = ({ promotion, onChange, isChecked }: CardProps) => {
     return (
-        <div className={`${styles.card} ${styles.shadow}`}>
+        <div className={`${isChecked ? styles.checked : styles.card} ${styles.shadow}`}>
             <div className={`${styles.flex} ${styles.alignCenter} ${styles.marginRight}`}>
                 <Checkbox className={styles.checkbox} onChange={() => onChange(promotion.value)} checked={isChecked} />
             </div>
             <div className={`${styles.flex} ${styles.alignCenter} ${styles.marginRight} ${styles.flex1}`}>
-                <h3>{promotion.label}</h3>
+                <p className='text-sm'>{promotion.label}</p>
             </div>
             <div className={`${styles.flex} ${styles.alignCenter}`}>
-                <span className={styles.price}>${promotion.price}</span>
+                <span className='text-sm font-bold'>${promotion.price}</span>
             </div>
         </div>
     );

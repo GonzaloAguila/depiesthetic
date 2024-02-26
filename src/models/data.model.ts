@@ -1,11 +1,10 @@
 export type Item = {
     label: string;
     value: string;
-    price: string | number;
+    price: number;
 };
 
 export type Zone = {
     label: string;
-    code: string;
     items: Item[];
 };
