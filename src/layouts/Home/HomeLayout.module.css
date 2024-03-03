@@ -4,7 +4,7 @@
     overflow: scroll;
     height: 100vh;
     position: relative;
-    background-color: #F4F2F3;
+    background-color: #f4f2f3;
 }
 
 .container * {
@@ -12,15 +12,12 @@
 }
 
 .container h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 0;
     text-align: center;
     font-weight: 900;
 }
-.container h2 {
-    font-size: 1.2rem;
-    text-align: center;
-}
+
 
 .contentContainer {
     min-height: 600px;
@@ -30,10 +27,10 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    padding: 20px; /* Ajusta según sea necesario */
+    padding: 1rem; /* Ajusta según sea necesario */
     border-radius: 10px; /* Ajusta según sea necesario */
     backdrop-filter: blur(4px); /* Ajusta el valor de desenfoque según sea necesario */
-    border: 1px solid var(--secondary)
+    border: 1px solid var(--secondary);
 }
 .tab {
     padding: 1rem;
@@ -54,7 +51,6 @@
 .item:hover {
     background-color: #e0e0e0; /* Cambia el color de fondo al pasar sobre las opciones */
 }
-
 
 .accordionTab {
     padding: 1rem;
@@ -182,4 +178,17 @@
 
 .cardGrid {
     width: 100%; /* Asegura que las tarjetas ocupen todo el ancho del contenedor */
+}
+
+.logo {
+    max-width: 200px; /* Establece el ancho máximo de la imagen */
+    object-fit: cover;
+    height: 100%;
+}
+
+.logoContainer {
+    width: 100%;
+    height: 70px;
+    display:  flex;
+    justify-content:  center;
 }

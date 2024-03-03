@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './HomeLayout.module.css';
-import { ListBox } from 'primereact/listbox';
 import { FaWhatsapp } from 'react-icons/fa';
 import { Accordion, AccordionTab } from 'primereact/accordion';
-import { Checkbox } from 'primereact/checkbox';
 import { RadioButton } from 'primereact/radiobutton';
 import logo from '../../../public/images/logo.png';
 import Image from 'next/image';
-import { locations, plans, promotions, zones } from '../../utils/data';
-import { Item, Zone } from '../../models/data.model';
+import { locations, plans, promotions, MujerCaba } from '../../utils/data';
+import { Item, Location, Plan, Zone } from '../../models/data.model';
 import PromotionCard from '../PromotionCard/PromotionCard';
 
 const HomeLayout = () => {
@@ -16,8 +14,40 @@ const HomeLayout = () => {
     const [selectedPromos, setSelectedPromos] = useState<string[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [activeIndex, setActiveIndex] = useState<number | number[]>(0);
-    const [selectedLocation, setSelectedLocation] = useState<string>('');
-    const [selectedPlan, setSelectedPlan] = useState<string>('');
+    const [selectedLocation, setSelectedLocation] = useState<Location>(Location.PALERMO);
+    const [selectedPlan, setSelectedPlan] = useState<Plan>(Plan.SIX);
+    const [selectedGender, setSelectedGender] = useState<'M' | 'F'>('F');
+    const [zones, setZones] = useState(MujerCaba);
+
+    useEffect(() => {
+        let discountFactor = 1;
+
+        // Verificar si se han seleccionado 2 o más zonas individuales
+        if (selectedZones.length >= 2 && selectedPromos.length === 0) {
+            discountFactor *= 0.9; // Aplicar un 10% de descuento
+        }
+
+        // Verificar si se ha elegido la opción de 1 sesión
+        if (selectedPlan === Plan.ONE) {
+            discountFactor *= 0.9; // Aplicar un 10% de descuento adicional
+        }
+
+        // Verificar si se ha elegido 3 o 6 sesiones
+        if (selectedPlan === Plan.THREE || selectedPlan === Plan.SIX) {
+            discountFactor *= 0.9; // Aplicar un 10% de descuento adicional
+        }
+
+        // Aplicar descuento a los precios de todas las zonas
+        const updatedZones = zones.map((zoneGroup) => ({
+            ...zoneGroup,
+            items: zoneGroup.items.map((item) => ({
+                ...item,
+                price: Math.round(item.price * discountFactor), // Aplicar descuento al precio
+            })),
+        }));
+
+        setZones(updatedZones);
+    }, [selectedZones, selectedPromos, selectedPlan]);
 
     useEffect(() => {
         let totalPrice = 0;
@@ -61,16 +91,44 @@ const HomeLayout = () => {
         <div className={styles.container}>
             <div className='w-full flex justify-end mt-2 mb-2 relative'>
                 <div className={`${styles.contentContainer} ml-2 mr-2`}>
-                    <Image alt='logo' height={40} width={150} src={logo} />
+                    <div className={styles.logoContainer}>
+                        <Image className={styles.logo} alt='logo' src={logo} />
+                    </div>
                     <div>
                         <h1 className='mt-2 relative'>¡Armá tu combo ahora!</h1>
-                        <h2>Aboná en hasta 3 cuotas sin interés</h2>
+                    </div>
+                    <div className='mt-2 w-full'>
+                        <div className='mt-2 flex flex-col justify-center items-center'>
+                            <p className='text-md font-semibold'>Género</p>
+                            <div className='flex w-full  mt-2 justify-center   md:flex-row'>
+                                <div className={`flex justify-center items-center mr-2`}>
+                                    <RadioButton
+                                        key={'F'}
+                                        value={'F'}
+                                        className={`${styles.radiobutton} ${'F' === selectedGender ? styles.selectedRadiobutton : ''}`}
+                                        onChange={(e) => setSelectedGender(e.value)}
+                                        checked={selectedGender === 'F'}
+                                    />
+                                    <label htmlFor={'F'}>Femenino</label>
+                                </div>
+                                <div className={`flex items-center mr-2`}>
+                                    <RadioButton
+                                        key={'M'}
+                                        value={'M'}
+                                        className={`${styles.radiobutton} ${'M' === selectedGender ? styles.selectedRadiobutton : ''}`}
+                                        onChange={(e) => setSelectedGender(e.value)}
+                                        checked={selectedGender === 'M'}
+                                    />
+                                    <label htmlFor={'M'}>Masculino</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className='mt-2 w-full flex justify-around'>
                         <div className='mt-2 flex flex-col'>
-                            <p className='text-lg font-semibold'>Sucursal</p>
+                            <p className='text-md font-semibold'>Sucursal</p>
                             <div className='flex w-full  mt-2  flex-col md:flex-row'>
-                                {locations.map((location, index: number) => {
+                                {locations.map((location: Location, index: number) => {
                                     return (
                                         <div key={index} className={`flex items-center mr-2`}>
                                             <RadioButton
@@ -88,9 +146,9 @@ const HomeLayout = () => {
                             </div>
                         </div>
                         <div className='mt-2  flex flex-col'>
-                            <p className='text-lg font-semibold	'>Sesiones</p>
+                            <p className='text-md font-semibold	'>Sesiones</p>
                             <div className='flex w-full  mt-2  flex-col md:flex-row'>
-                                {plans.map((plan, index: number) => {
+                                {plans.map((plan: Plan, index: number) => {
                                     return (
                                         <div key={index} className='flex items-center mr-2 '>
                                             <RadioButton

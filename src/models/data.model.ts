@@ -8,3 +8,17 @@ export type Zone = {
     label: string;
     items: Item[];
 };
+
+export enum Plan {
+    ONE = '1 sesión',
+    THREE = '3 sesiones',
+    SIX = '6 sesiones'
+}
+
+export enum Location {
+    RAMOS = 'R.Mejía',
+    BELGRANO = 'Belgrano',
+    CABALLITO = 'Caballito',
+    PALERMO = 'Palermo'
+
+}
