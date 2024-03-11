@@ -63,8 +63,8 @@
 
 .accordionContent {
     display: grid;
-    grid-template-columns: repeat(2, minmax(auto, 1fr)); /* Corrección en la sintaxis */
-    gap: 10px; /* Espacio entre las tarjetas */
+    grid-template-columns: repeat(2, minmax(auto, 1fr)); 
+    gap: 10px; 
 }
 
 .checkbox {
@@ -79,6 +79,7 @@
     margin-top: 1rem;
     display: flex;
     width: 100%;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem;
@@ -163,11 +164,6 @@
     margin: 0.5rem;
     font-weight: bold;
     background-color: var(--very-light-secondary);
-}
-.promotionsAccordionContent {
-    display: flex;
-    align-items: center;
-    width: 100%;
 }
 
 .gridContainer {
