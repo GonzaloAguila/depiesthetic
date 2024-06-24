@@ -2,12 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
     --primary: #ed7aa4;
     --secondary: #a084ce;
     --light-secondary: #b39add;
     --very-light-secondary: #c5b0e7;
     --checked: #ded2f1
+}
+ */
+:root {
+    --primary: #ed7aa4;
+    --secondary: #ed7aa4;
+    --light-secondary: #EDD0D0;
+    --very-light-secondary: #e6b7c8;
+    --checked:  #e9dcdc
 }
 
 html {

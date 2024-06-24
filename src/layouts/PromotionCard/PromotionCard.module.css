@@ -39,7 +39,7 @@
 }
 
 .checked {
-    background-color: #ded2f1;
+    background-color: var(--checked);
     display: flex;
     align-items: center;
     justify-content: space-between;

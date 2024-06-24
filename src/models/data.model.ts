@@ -19,6 +19,6 @@ export enum Location {
     RAMOS = 'R.Mejía',
     BELGRANO = 'Belgrano',
     CABALLITO = 'Caballito',
-    PALERMO = 'Palermo'
+    PALERMO = 'Palermo',
 
 }
