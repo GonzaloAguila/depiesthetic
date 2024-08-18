@@ -18,6 +18,12 @@
     font-weight: 900;
 }
 
+.form-background {
+    background-image: url('/images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+  }
 
 .contentContainer {
     min-height: 600px;
@@ -31,7 +37,9 @@
     border-radius: 10px; /* Ajusta según sea necesario */
     backdrop-filter: blur(4px); /* Ajusta el valor de desenfoque según sea necesario */
     border: 1px solid var(--secondary);
+
 }
+
 .tab {
     padding: 1rem;
 }
@@ -63,8 +71,8 @@
 
 .accordionContent {
     display: grid;
-    grid-template-columns: repeat(2, minmax(auto, 1fr)); 
-    gap: 10px; 
+    grid-template-columns: repeat(2, minmax(auto, 1fr));
+    gap: 10px;
 }
 
 .checkbox {
@@ -95,8 +103,26 @@
     font-weight: bold;
 }
 
+.sesionText {
+    font-size: 1.1rem !important;
+    color: gray;
+}
+
 .cotizarButtonContainer {
     width: 100%;
+}
+
+.titaniumImageContainer {
+    width: 100%;
+    height: 120px;
+    padding: 1rem 0;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total del contenedor */
+}
+
+.titaniumImageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen se ajuste bien dentro del contenedor */
 }
 
 .cotizarButton {
@@ -185,6 +211,6 @@
 .logoContainer {
     width: 100%;
     height: 70px;
-    display:  flex;
-    justify-content:  center;
+    display: flex;
+    justify-content: center;
 }

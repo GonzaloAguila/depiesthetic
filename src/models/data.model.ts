@@ -17,8 +17,6 @@ export enum Plan {
 
 export enum Location {
     RAMOS = 'R.Mejía',
-    BELGRANO = 'Belgrano',
-    CABALLITO = 'Caballito',
-    PALERMO = 'Palermo',
+    CABA = 'CABA'
 
 }

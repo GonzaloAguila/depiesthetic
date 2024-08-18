@@ -5,9 +5,10 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { RadioButton } from 'primereact/radiobutton';
 import logo from '../../../public/images/logo.png';
 import Image from 'next/image';
-import { locations, plans, promotions, MujerCaba } from '../../utils/data';
+import { locations, plans, promotions, MujerCaba, MujerRamos, HombreCaba, HombreRamos } from '../../utils/data';
 import { Location, Plan, Zone, Item } from '../../models/data.model';
 import PromotionCard from '../PromotionCard/PromotionCard';
+import TitaniumImage from '../../../public/images/titanium.jpg';
 
 interface RadioOptionProps {
     label: string;
@@ -33,14 +34,23 @@ const HomeLayout: React.FC = () => {
     const [selectedPromos, setSelectedPromos] = useState<string[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [activeIndex, setActiveIndex] = useState<number | number[]>(0);
-    const [selectedLocation, setSelectedLocation] = useState<Location>(Location.PALERMO);
+    const [selectedLocation, setSelectedLocation] = useState<Location>(Location.CABA);
     const [selectedPlan, setSelectedPlan] = useState<Plan>(Plan.SIX);
     const [selectedGender, setSelectedGender] = useState<'M' | 'F'>('F');
     const [zones, setZones] = useState<Zone[]>(MujerCaba);
 
     useEffect(() => {
+        // Update zones based on selectedGender and selectedLocation
+        if (selectedGender === 'F') {
+            setZones(selectedLocation === Location.CABA ? MujerCaba : MujerRamos);
+        } else {
+            setZones(selectedLocation === Location.CABA ? HombreCaba : HombreRamos);
+        }
+    }, [selectedGender, selectedLocation]);
+
+    useEffect(() => {
         const promoTotal = selectedPromos.reduce((total, promo) => {
-            const selectedPromo = promotions.find((item) => item.value === promo);
+            const selectedPromo = promotions.find((item) => item.key === selectedLocation)?.value.find((promoItem) => promoItem.value === promo);
             return selectedPromo ? total + selectedPromo.price : total;
         }, 0);
 
@@ -72,7 +82,7 @@ const HomeLayout: React.FC = () => {
         }
 
         setTotalPrice((promoTotal + zoneTotal) * (1 - discount));
-    }, [selectedZones, selectedPromos, selectedPlan, zones]);
+    }, [selectedZones, selectedPromos, selectedPlan, zones, selectedLocation]);
 
     const handleSelectionChange = (itemValue: string, selectedItems: string[], setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>) => {
         setSelectedItems((prevSelectedItems) => {
@@ -88,10 +98,14 @@ const HomeLayout: React.FC = () => {
         const phone = process.env.NEXT_PUBLIC_PHONE;
         const message = ` Hola, me gustaría atenderme en la sucursal de ${selectedLocation}, y quisiera consultar por las siguientes opciones de zonas: ${selectedZones.join(
             ','
+        )}, ${selectedPromos.join(
+            ','
         )}`;
         const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     };
+
+    const selectedPromotions = promotions.find((item) => item.key === selectedLocation)?.value || [];
 
     return (
         <div className={styles.container}>
@@ -103,16 +117,20 @@ const HomeLayout: React.FC = () => {
                     <div>
                         <h1 className='mt-2 relative'>¡Armá tu combo ahora!</h1>
                     </div>
-                    <div className='mt-2 w-full'>
-                        <div className='mt-2 flex flex-col justify-center items-center'>
+                    <div className='w-full mt-4 text-left'>
+                        <p className=' font-semibold'>10% OFF ELIGIENDO 2 O MÁS ZONAS</p>
+                        <p className=' font-semibold'>10% OFF ADICIONAL POR PAGO EN EFECTIVO</p>
+                        <p className=' font-semibold'>10% OFF ADICIONAL POR ABONAR 3 O 6 SESIONES EN UN 1 PAGO</p>
+                    </div>
+                  
+                    <div className='mt-2 w-full flex flex-col justify-around'>
+                        <div className='mt-2 flex flex-col'>
                             <p className='text-md font-semibold'>Género</p>
-                            <div className='flex w-full mt-2 justify-center md:flex-row'>
+                            <div className='flex w-full mt-2  md:flex-row'>
                                 <RadioOption label='Femenino' value='F' selectedValue={selectedGender} onChange={(e) => setSelectedGender(e.value)} />
                                 <RadioOption label='Masculino' value='M' selectedValue={selectedGender} onChange={(e) => setSelectedGender(e.value)} />
                             </div>
                         </div>
-                    </div>
-                    <div className='mt-2 w-full flex justify-around'>
                         <div className='mt-2 flex flex-col'>
                             <p className='text-md font-semibold'>Sucursal</p>
                             <div className='flex w-full mt-2 flex-col md:flex-row'>
@@ -127,7 +145,7 @@ const HomeLayout: React.FC = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className='mt-2 flex flex-col'>
+                        <div className='mt-4 flex flex-col'>
                             <p className='text-md font-semibold'>Sesiones</p>
                             <div className='flex w-full mt-2 flex-col md:flex-row'>
                                 {plans.map((plan, index) => (
@@ -142,43 +160,46 @@ const HomeLayout: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full mt-4'>
-                        <Accordion className='w-full md:w-14rem' multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
-                            <AccordionTab contentClassName={styles.promotionsAccordionContent} headerClassName={styles.accordionTab} header='Promociones'>
-                                {promotions.map((promotion, index) => {
-                                    const isChecked = selectedPromos.includes(promotion.value);
-                                    return (
-                                        <PromotionCard
-                                            onChange={() => handlePromotionsChange(promotion.value)}
-                                            isChecked={isChecked}
-                                            key={index}
-                                            promotion={promotion}
-                                        />
-                                    );
-                                })}
-                            </AccordionTab>
-                            {zones.map((zone, index) => (
-                                <AccordionTab headerClassName={styles.accordionTab} header={zone.label} key={index}>
-                                    <div className={styles.accordionContent}>
-                                        {zone.items.map((item, index) => {
-                                            const isChecked = selectedZones.includes(item.value);
-                                            return (
-                                                <PromotionCard
-                                                    onChange={() => handleCheckboxChange(item.value)}
-                                                    isChecked={isChecked}
-                                                    key={index}
-                                                    promotion={item}
-                                                />
-                                            );
-                                        })}
-                                    </div>
+                    {selectedGender === 'F' && (
+                        <div className='w-full mt-4'>
+                            <Accordion className='w-full md:w-14rem' multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
+                                <AccordionTab contentClassName={styles.promotionsAccordionContent} headerClassName={styles.accordionTab} header='Promociones'>
+                                    {selectedPromotions.map((promotion, index) => {
+                                        const isChecked = selectedPromos.includes(promotion.value);
+                                        return (
+                                            <PromotionCard
+                                                onChange={() => handlePromotionsChange(promotion.value)}
+                                                isChecked={isChecked}
+                                                key={index}
+                                                promotion={promotion}
+                                            />
+                                        );
+                                    })}
                                 </AccordionTab>
-                            ))}
-                        </Accordion>
-                    </div>
+                                {zones.map((zone, index) => (
+                                    <AccordionTab headerClassName={styles.accordionTab} header={zone.label} key={index}>
+                                        <div className={styles.accordionContent}>
+                                            {zone.items.map((item, index) => {
+                                                const isChecked = selectedZones.includes(item.value);
+                                                return (
+                                                    <PromotionCard
+                                                        onChange={() => handleCheckboxChange(item.value)}
+                                                        isChecked={isChecked}
+                                                        key={index}
+                                                        promotion={item}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    </AccordionTab>
+                                ))}
+                            </Accordion>
+                        </div>
+                    )}
                     <div className={styles.totalPriceContainer}>
                         <p>TOTAL:</p>
                         <span>${totalPrice.toFixed(2)}</span>
+                        <span className={styles.sesionText}>(por sesión)</span>
                     </div>
                     <div className={styles.cotizarButtonContainer}>
                         <button onClick={handleWhatsAppClick} className={styles.cotizarButton}>
@@ -186,6 +207,10 @@ const HomeLayout: React.FC = () => {
                             Cotizar Ahora
                         </button>
                     </div>
+                    <div className={styles.titaniumImageContainer}>
+                        <Image alt='soprano' src={TitaniumImage} />
+                    </div>
+                    <p className='text-center'>Depi Esthetic 2024 - Todos los derechos reservados</p>
                 </div>
             </div>
         </div>
