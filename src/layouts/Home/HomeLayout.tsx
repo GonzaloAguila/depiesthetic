@@ -122,7 +122,7 @@ const HomeLayout: React.FC = () => {
                         <p className=' font-semibold'>10% OFF ADICIONAL POR PAGO EN EFECTIVO</p>
                         <p className=' font-semibold'>10% OFF ADICIONAL POR ABONAR 3 O 6 SESIONES EN UN 1 PAGO</p>
                     </div>
-                  
+
                     <div className='mt-2 w-full flex flex-col justify-around'>
                         <div className='mt-2 flex flex-col'>
                             <p className='text-md font-semibold'>Género</p>
@@ -160,9 +160,10 @@ const HomeLayout: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    {selectedGender === 'F' && (
-                        <div className='w-full mt-4'>
-                            <Accordion className='w-full md:w-14rem' multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
+
+                    <div className='w-full mt-4'>
+                        <Accordion className='w-full md:w-14rem' multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
+                            {selectedGender === 'F' &&
                                 <AccordionTab contentClassName={styles.promotionsAccordionContent} headerClassName={styles.accordionTab} header='Promociones'>
                                     {selectedPromotions.map((promotion, index) => {
                                         const isChecked = selectedPromos.includes(promotion.value);
@@ -176,26 +177,27 @@ const HomeLayout: React.FC = () => {
                                         );
                                     })}
                                 </AccordionTab>
-                                {zones.map((zone, index) => (
-                                    <AccordionTab headerClassName={styles.accordionTab} header={zone.label} key={index}>
-                                        <div className={styles.accordionContent}>
-                                            {zone.items.map((item, index) => {
-                                                const isChecked = selectedZones.includes(item.value);
-                                                return (
-                                                    <PromotionCard
-                                                        onChange={() => handleCheckboxChange(item.value)}
-                                                        isChecked={isChecked}
-                                                        key={index}
-                                                        promotion={item}
-                                                    />
-                                                );
-                                            })}
-                                        </div>
-                                    </AccordionTab>
-                                ))}
-                            </Accordion>
-                        </div>
-                    )}
+                            }
+                            {zones.map((zone, index) => (
+                                <AccordionTab headerClassName={styles.accordionTab} header={zone.label} key={index}>
+                                    <div className={styles.accordionContent}>
+                                        {zone.items.map((item, index) => {
+                                            const isChecked = selectedZones.includes(item.value);
+                                            return (
+                                                <PromotionCard
+                                                    onChange={() => handleCheckboxChange(item.value)}
+                                                    isChecked={isChecked}
+                                                    key={index}
+                                                    promotion={item}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </AccordionTab>
+                            ))}
+                        </Accordion>
+                    </div>
+
                     <div className={styles.totalPriceContainer}>
                         <p>TOTAL:</p>
                         <span>${totalPrice.toFixed(2)}</span>
